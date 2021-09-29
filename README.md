@@ -4,4 +4,4 @@ People on this wifi without password
 
 please run it as root
 
-$bash attack
+$ bash attack
