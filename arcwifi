@@ -5,8 +5,11 @@ apt install aircrack-ng
 clear
 echo ARC-wifi===========================]
 echo [h] help
+echo [i] info
 echo [1] Attack wifi
 echo [2] check wlan interface
+echo [3] fix interface error
+echo "[4] stop monitoring mode"
 
 read -p "choose number : " cho
 case $cho in 
@@ -30,6 +33,19 @@ echo "8.if you want to start attack just click ctrl + c"
 echo "9.if you want to stop the attack hit ctrl + c again"
 ;;
 
+i)
+
+echo "                               -arcdeveloper"
+echo "ARC wifi v1.2                               "
+echo "============================================"
+echo "first released at : 30 sep 2021             "
+echo "if you see a bug please report it           "
+echo "my email : arcdeveloper7@gmail.com          "
+
+;;
+
+
+
 1)
 
 clear
@@ -37,6 +53,7 @@ echo "[Deauth Sender]===================]"
 read -p "please insert your wifi interface : " itf;
 read -p "please reinsert your wifi interface >>with mon<< : " itd;
 airmon-ng start $itf
+echo "$itd" > mondata.txt
 
 clear
 
@@ -84,8 +101,20 @@ iwconfig
 
 ;;
 
+3)
+
+clear
+
+airmon-ng check kill
+
+bash arcwifi
+
+;;
+
+4)
+
+airmon-ng stop mondata.txt
+
+;;
+
 esac
-
-
-
-
